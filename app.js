@@ -180,7 +180,7 @@ function renderHost() {
   if (!meta) { $app.innerHTML = '<div class="loading"><div class="spinner"></div><p>Ouverture de la salle…</p></div>'; return; }
   const phase = meta.phase, current = currentRound(), index = Number(meta.questionIndex) || 0;
   const top = `<div class="row between wrap" style="margin-bottom:17px"><div><span class="kicker">Écran professeur · ${esc(sessionQuiz?.title || meta.title)}</span><h1 class="big-title" style="margin:4px 0">${phase==='lobby'?'Salle d’attente':phase==='question'?'Question en cours':phase==='reveal'?'Résultats de la manche':'Classement final'}</h1></div><div class="top-actions"><span class="pill">Code ${esc(roomCode)}</span><button class="btn outline small" data-action="copy-link">Copier le lien</button></div></div>`;
-  const lobby = `<section class="panel center"><span class="kicker">Rejoindre la partie</span><div class="game-code">${esc(roomCode)}</div><p>Sur leur appareil, les élèves ouvrent <strong>${esc(baseLink())}</strong> puis saisissent ce code.</p><div class="code-link">${esc(joinLink())}</div><div class="hr"></div><div class="count">${Object.keys(people).length}</div><div class="muted">joueur${Object.keys(people).length>1?'s':''} inscrit${Object.keys(people).length>1?'s':''}</div><div class="names" style="justify-content:center">${Object.values(people).map(p=>`<span class="name-chip">${esc(p.name)}</span>`).join('')}</div><button class="btn primary spaced" data-action="start" ${Object.keys(people).length===0?'disabled':''}>Démarrer le quiz →</button><p class="last-note">${esc(sessionQuiz?.questions.length || 0)} questions · ${esc(meta.duration)} secondes par question</p></section>`;
+  const lobby = `<section class="panel center"><span class="kicker">Rejoindre la partie</span><div class="game-code">${esc(roomCode)}</div><p>Sur leur appareil, les élèves ouvrent <strong>${esc(baseLink())}</strong> puis saisissent ce code.</p><div class="qr-wrap"><div id="roomQr" class="qr-code" aria-label="QR code pour rejoindre la partie"></div><p class="muted tiny">Scannez ce QR code avec l’appareil photo pour rejoindre directement la salle.</p></div><div class="code-link">${esc(joinLink())}</div><div class="hr"></div><div class="count">${Object.keys(people).length}</div><div class="muted">joueur${Object.keys(people).length>1?'s':''} inscrit${Object.keys(people).length>1?'s':''}</div><div class="names" style="justify-content:center">${Object.values(people).map(p=>`<span class="name-chip">${esc(p.name)}</span>`).join('')}</div><button class="btn primary spaced" data-action="start" ${Object.keys(people).length===0?'disabled':''}>Démarrer le quiz →</button><p class="last-note">${esc(sessionQuiz?.questions.length || 0)} questions · ${esc(meta.duration)} secondes par question</p></section>`;
   let content = '';
   if (phase === 'lobby') content = lobby;
   if (phase === 'question' || phase === 'reveal') {
@@ -188,6 +188,14 @@ function renderHost() {
   }
   if (phase === 'finished') content = `<section class="panel"><div class="center"><span class="kicker">Quiz terminé</span><div class="display-icon">🏆</div><h2 class="big-title">Congratulations!</h2><p>Classement final des participants</p></div>${leaderBoard(100)}</section>`;
   $app.innerHTML = top + `<div class="stage"><div class="stage-main">${content}</div><aside class="side"><section class="panel"><h2 class="teacher-panel-title">Participants <span class="pill">${Object.keys(people).length}</span></h2>${phase==='lobby'?`<div class="names">${Object.values(people).map(p=>`<span class="name-chip">${esc(p.name)}</span>`).join('')||'<span class="muted">En attente…</span>'}</div>`:leaderBoard(10)}</section><section class="panel"><h2 class="teacher-panel-title">Commandes</h2><p class="tiny muted">Garde cet onglet ouvert : c'est l'écran professeur qui calcule les scores et fait avancer le quiz.</p><button class="btn danger wide" data-action="delete-room">Supprimer la partie</button></section></aside></div>`;
+  if (phase === 'lobby') {
+    const target = document.getElementById('roomQr');
+    if (target && typeof QRCode !== 'undefined') {
+      new QRCode(target, {text: joinLink(), width: 220, height: 220, colorDark: '#122743', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M});
+    } else if (target) {
+      target.textContent = 'QR code indisponible : utilise le lien affiché ci-dessous.';
+    }
+  }
   tickClock();
 }
 function answerHtml(text,i,correctIndex,chosenIndex,clickable) {
