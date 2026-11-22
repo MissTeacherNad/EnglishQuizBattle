@@ -24,16 +24,22 @@ const DEFAULT_QUIZ = {
 
 const STORAGE_QUIZ = 'englishQuizBattleQuizV1';
 const STORAGE_ROOM = 'englishQuizBattleRoomV1';
+const STORAGE_LIBRARY = 'englishQuizBattleLibraryV2';
+const LEVELS = ['6ème','5ème','4ème','3ème','2nde','1ère'];
+const CATEGORIES = ['Vocabulaire','Grammaire','Culture'];
+const DEFAULT_ENTRIES = window.QB_STARTER_QUIZZES || [];
+let library = loadLibrary(), activeQuizId = null, libraryLevel = 'Tous', libraryCategory = 'Tous';
 const letters = ['A', 'B', 'C', 'D'];
 const icons = ['▲', '◆', '●', '■'];
 const $app = document.getElementById('app');
 const $status = document.getElementById('netStatus');
 let db = null, auth = null, user = null, authPromise = null;
 let online = false, offsetMs = 0;
-let role = 'home', roomCode = '', meta = null;
+let role = queryJoinCode() ? 'joining' : 'home', roomCode = '', meta = null;
 let people = {}, rounds = {}, scores = {}, submissionsCount = 0;
 let ownAnswer = null, joining = false, submitting = false, busy = false;
 let quiz = loadQuiz(), sessionQuiz = null, myName = '';
+if (!library.length) library = [makeEntry(quiz,'6ème','Vocabulaire','Famille','')];
 let subscriptions = [], unsubscribeRound = null, answerSubscribedKey = null;
 let toastTimeout = null;
 
@@ -67,6 +73,47 @@ function validateQuiz(q) {
   });
   return errors;
 }
+function makeId() { return 'q'+Date.now().toString(36)+Math.random().toString(36).slice(2,9); }
+function makeEntry(source, level, category, theme, sequence, id=null) {
+  return { id: id || makeId(), level, category, theme: (theme || '').trim(), sequence: (sequence || '').trim(), quiz: clone(source) };
+}
+function loadLibrary() {
+  const stored=safeJson(localStorage.getItem(STORAGE_LIBRARY));
+  if (Array.isArray(stored)) return stored.filter(e=>e && LEVELS.includes(e.level) && CATEGORIES.includes(e.category) && e.quiz && !validateQuiz(e.quiz).length);
+  return DEFAULT_ENTRIES.map(e=>makeEntry(e.quiz,e.level,e.category,e.theme,e.sequence));
+}
+function persistLibrary() {
+  try { localStorage.setItem(STORAGE_LIBRARY,JSON.stringify(library)); return true; }
+  catch(err) { console.error(err); toast('Stockage local plein ou indisponible. Exporte une sauvegarde de ta bibliothèque.'); return false; }
+}
+function saveActiveQuiz() {
+  if (!activeQuizId) return;
+  const entry=library.find(e=>e.id===activeQuizId);
+  if (entry) { entry.quiz=clone(quiz); persistLibrary(); }
+}
+function startEdit(id) {
+  const entry=library.find(e=>e.id===id);
+  if (!entry) return toast('Quiz introuvable.');
+  activeQuizId=id; quiz=clone(entry.quiz); saveQuiz(); role='editor';render();
+}
+function downloadJson(value,filename) {
+  const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json;charset=utf-8'}));
+  const anchor=document.createElement('a'); anchor.href=url; anchor.download=filename; anchor.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function renderLibrary() {
+  const list=library.filter(e=>(libraryLevel==='Tous'||e.level===libraryLevel)&&(libraryCategory==='Tous'||e.category===libraryCategory));
+  const order={};LEVELS.forEach((l,i)=>order[l]=i);
+  list.sort((a,b)=>order[a.level]-order[b.level]||a.category.localeCompare(b.category,'fr')||a.quiz.title.localeCompare(b.quiz.title,'fr'));
+  $app.innerHTML=`<div class="narrow"><div class="editor-head"><div><span class="kicker">Espace professeur</span><h1 class="big-title">Bibliothèque de quiz</h1><p class="muted">Choisis un quiz avant la partie, ou enrichis ta collection par niveau, thème et séquence.</p></div><div class="top-actions"><button class="btn soft small" data-action="home">← Accueil</button><button class="btn outline small" data-action="export-library">Sauvegarder la bibliothèque</button><label for="importLibrary" class="btn light small" style="cursor:pointer">Restaurer une sauvegarde</label><input id="importLibrary" type="file" accept="application/json,.json" class="file-input"></div></div>
+  <section class="panel"><div class="settings-grid"><div class="field"><label for="levelFilter">Niveau</label><select id="levelFilter"><option>Tous</option>${LEVELS.map(l=>`<option ${libraryLevel===l?'selected':''}>${l}</option>`).join('')}</select></div><div class="field"><label for="categoryFilter">Activité</label><select id="categoryFilter"><option>Tous</option>${CATEGORIES.map(c=>`<option ${libraryCategory===c?'selected':''}>${c}</option>`).join('')}</select></div></div><div class="row wrap spaced"><button class="btn primary small" data-action="new-quiz">＋ Nouveau quiz</button><label for="importFile" class="btn outline small" style="cursor:pointer">Importer un quiz JSON</label><input id="importFile" type="file" accept="application/json,.json" class="file-input"></div><p class="muted tiny">Les quiz personnels restent dans le navigateur de cet appareil. Exporte régulièrement une sauvegarde pour les retrouver sur un autre appareil.</p></section>
+  ${list.length?`<div class="quiz-catalog">${list.map(e=>`<section class="panel quiz-tile"><div class="row wrap between"><div><span class="pill">${esc(e.level)}</span> <span class="pill">${esc(e.category)}</span><h2>${esc(e.quiz.title)}</h2><p class="muted">${e.theme?'Thème : '+esc(e.theme):''}${e.theme&&e.sequence?' · ':''}${e.sequence?'Séquence : '+esc(e.sequence):''}</p><p class="tiny muted">${e.quiz.questions.length} questions · ${e.quiz.duration} s/question</p></div><div class="top-actions"><button class="btn primary small" data-action="pick-quiz" data-id="${esc(e.id)}">Choisir et préparer</button><button class="btn light small" data-action="edit-quiz" data-id="${esc(e.id)}">Modifier</button><button class="btn outline small" data-action="duplicate-quiz" data-id="${esc(e.id)}">Dupliquer</button><button class="btn danger small" data-action="remove-quiz" data-id="${esc(e.id)}">Supprimer</button></div></div></section>`).join('')}</div>`:'<section class="panel"><p>Aucun quiz pour ces filtres. Crée un quiz ou importe un questionnaire JSON.</p></section>'}</div>`;
+}
+function selectedEntry(){return library.find(e=>e.id===activeQuizId);}
+function editorDetails() {
+ const entry=selectedEntry(); if(!entry)return '';
+ return `<section class="panel"><h2>Classement du quiz</h2><div class="settings-grid"><div class="field"><label for="entryLevel">Niveau</label><select id="entryLevel">${LEVELS.map(l=>`<option ${entry.level===l?'selected':''}>${l}</option>`).join('')}</select></div><div class="field"><label for="entryCategory">Type d'activité</label><select id="entryCategory">${CATEGORIES.map(c=>`<option ${entry.category===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="field"><label for="entryTheme">Thème (facultatif)</label><input id="entryTheme" maxlength="75" value="${esc(entry.theme)}" placeholder="Ex. Espionnage, Halloween, la famille"></div><div class="field"><label for="entrySequence">Séquence (facultative)</label><input id="entrySequence" maxlength="75" value="${esc(entry.sequence)}" placeholder="Ex. Spy School"></div></div><p class="tiny muted">Un quiz peut avoir un thème, une séquence, les deux ou aucun des deux.</p></section>`;
+}
 function initFirebase() {
   const config = window.QB_FIREBASE_CONFIG;
   if (!config || !config.apiKey || config.apiKey.startsWith('REMPLACER') || !config.databaseURL || config.databaseURL.includes('REMPLACER')) {
@@ -89,6 +136,7 @@ async function ensureReady() {
   if (!online) throw new Error('La connexion à Firebase n’est pas active.');
 }
 async function restoreTeacherSession() {
+  if (queryJoinCode()) return; // QR link takes precedence over a saved teacher session
   const last = safeJson(localStorage.getItem(STORAGE_ROOM));
   if (!user || !last || !last.code || !last.quiz || validateQuiz(last.quiz).length) return;
   try {
@@ -155,6 +203,7 @@ function leaderBoard(limit = 30, highlightUid = null) {
 function render() {
   if (role === 'home') return renderHome();
   if (role === 'editor') return renderEditor();
+  if (role === 'library') return renderLibrary();
   if (role === 'joining') return renderJoin();
   if (role === 'host') return renderHost();
   if (role === 'player') return renderPlayer();
@@ -162,16 +211,16 @@ function render() {
 function renderHome() {
   const incoming = queryJoinCode();
   $app.innerHTML = `<section class="hero"><span class="eyebrow">Interactive classroom</span><h1>Make learning<br>feel like a game.</h1><p>Des questions, un chronomètre et un classement en direct. Les élèves jouent sur leur propre appareil.</p></section>
-  <div class="grid2"><section class="card"><div class="feature-icon">🎓</div><span class="kicker">Espace professeur</span><h2>Créer une partie</h2><p>Prépare ton quiz, affiche le code de connexion et pilote les questions au tableau.</p><button class="btn primary wide" data-action="editor">Préparer un quiz <span aria-hidden="true">→</span></button></section>
+  <div class="grid2"><section class="card"><div class="feature-icon">🎓</div><span class="kicker">Espace professeur</span><h2>Créer une partie</h2><p>Choisis un quiz par niveau, type ou thème, affiche le code de connexion et pilote les questions au tableau.</p><button class="btn primary wide" data-action="library">Choisir un quiz <span aria-hidden="true">→</span></button></section>
   <section class="card"><div class="feature-icon">⚡</div><span class="kicker">Espace élève</span><h2>Rejoindre la classe</h2><p>Entre le code affiché par le professeur et choisis un pseudonyme.</p><div class="field"><label for="homeCode">Code de la partie</label><input id="homeCode" inputmode="numeric" maxlength="6" placeholder="Ex. 123456" value="${esc(incoming)}"></div><button class="btn blue wide" data-action="go-join">Rejoindre <span aria-hidden="true">→</span></button></section></div>
   <p class="last-note">Aucune application à installer. Internet et la configuration Firebase sont nécessaires pour jouer sur plusieurs appareils.</p>`;
 }
 function renderEditor() {
-  $app.innerHTML = `<div class="narrow"><div class="editor-head"><div><span class="kicker">Espace professeur</span><h1 class="big-title">Préparer ton quiz</h1><p class="muted">Modifie les questions, puis ouvre une salle pour tes élèves.</p></div><div class="top-actions"><button class="btn soft small" data-action="home">← Accueil</button><button class="btn outline small" data-action="export">Exporter JSON</button><label for="importFile" class="btn light small" style="cursor:pointer">Importer JSON</label><input id="importFile" type="file" accept="application/json,.json" class="file-input"></div></div>
-  <section class="panel"><div class="settings-grid"><div class="field"><label for="quizTitle">Titre du quiz</label><input id="quizTitle" data-quiz-field="title" value="${esc(quiz.title)}" maxlength="80"></div><div class="field"><label for="quizDuration">Temps par question</label><select id="quizDuration" data-quiz-field="duration">${[10,15,20,30,45,60].map(v => `<option value="${v}" ${Number(quiz.duration)===v?'selected':''}>${v} s</option>`).join('')}</select></div></div><div class="info-line spaced">Une bonne réponse rapporte 500 à 1 000 points selon la rapidité. La bonne réponse n'est révélée qu'à la fin du temps.</div></section>
+  $app.innerHTML = `<div class="narrow"><div class="editor-head"><div><span class="kicker">Espace professeur</span><h1 class="big-title">Préparer ton quiz</h1><p class="muted">Modifie les questions, puis ouvre une salle pour tes élèves.</p></div><div class="top-actions"><button class="btn soft small" data-action="library">← Bibliothèque</button><button class="btn outline small" data-action="export">Exporter JSON</button><label for="importFile" class="btn light small" style="cursor:pointer">Importer JSON</label><input id="importFile" type="file" accept="application/json,.json" class="file-input"></div></div>
+  ${editorDetails()}<section class="panel"><div class="settings-grid"><div class="field"><label for="quizTitle">Titre du quiz</label><input id="quizTitle" data-quiz-field="title" value="${esc(quiz.title)}" maxlength="80"></div><div class="field"><label for="quizDuration">Temps par question</label><select id="quizDuration" data-quiz-field="duration">${[10,15,20,30,45,60].map(v => `<option value="${v}" ${Number(quiz.duration)===v?'selected':''}>${v} s</option>`).join('')}</select></div></div><div class="info-line spaced">Une bonne réponse rapporte 500 à 1 000 points selon la rapidité. La bonne réponse n'est révélée qu'à la fin du temps.</div></section>
   <div class="section-title"><strong>Questions (${quiz.questions.length})</strong><button class="btn light small" data-action="add-question">＋ Ajouter</button></div>
   ${quiz.questions.map((q,i) => `<section class="question-edit"><div class="row between"><h3>Question ${i+1}</h3><button class="btn danger small" data-action="delete-question" data-index="${i}" ${quiz.questions.length<=1?'disabled':''}>Supprimer</button></div><div class="field"><label for="question${i}">Intitulé</label><input id="question${i}" data-index="${i}" data-question-field="text" maxlength="260" value="${esc(q.text)}"></div><div class="answer-edit">${q.options.map((opt,j)=> `<div class="field"><label for="option${i}-${j}">Réponse ${letters[j]}</label><input id="option${i}-${j}" data-index="${i}" data-option="${j}" maxlength="130" value="${esc(opt)}"></div>`).join('')}</div><div class="field spaced"><label for="correct${i}">Bonne réponse</label><select id="correct${i}" data-index="${i}" data-question-field="correct">${letters.map((letter,j)=> `<option value="${j}" ${j===q.correct?'selected':''}>Réponse ${letter}</option>`).join('')}</select></div></section>`).join('')}
-  <div class="row wrap between spaced"><div class="muted tiny">Les modifications sont enregistrées sur cet appareil.</div><button class="btn primary" data-action="create">Créer la partie en direct →</button></div></div>`;
+  <div class="row wrap between spaced"><div class="muted tiny">Les modifications sont enregistrées dans la bibliothèque de cet appareil.</div><button class="btn primary" data-action="create">Créer la partie en direct →</button></div></div>`;
 }
 function renderJoin() {
   $app.innerHTML = `<div class="join-box"><section class="card center"><span class="kicker">Rejoins la partie</span><div class="display-icon">🎯</div><h1 class="big-title">Ready to play?</h1><p>Un code, un pseudonyme, et c'est parti.</p><div class="field" style="text-align:left"><label for="joinCode">Code à 6 chiffres</label><input id="joinCode" inputmode="numeric" maxlength="6" value="${esc(queryJoinCode())}" placeholder="123456" autocomplete="off"></div><div class="field" style="text-align:left"><label for="joinName">Ton pseudonyme</label><input id="joinName" maxlength="20" placeholder="Ex. BlueFox" autocomplete="nickname" value="${esc(myName)}"></div><button class="btn blue wide" data-action="join" ${joining?'disabled':''}>${joining ? 'Connexion…' : 'Entrer dans le jeu →'}</button><button class="btn soft wide" data-action="home">← Retour</button></section></div>`;
@@ -180,7 +229,7 @@ function renderHost() {
   if (!meta) { $app.innerHTML = '<div class="loading"><div class="spinner"></div><p>Ouverture de la salle…</p></div>'; return; }
   const phase = meta.phase, current = currentRound(), index = Number(meta.questionIndex) || 0;
   const top = `<div class="row between wrap" style="margin-bottom:17px"><div><span class="kicker">Écran professeur · ${esc(sessionQuiz?.title || meta.title)}</span><h1 class="big-title" style="margin:4px 0">${phase==='lobby'?'Salle d’attente':phase==='question'?'Question en cours':phase==='reveal'?'Résultats de la manche':'Classement final'}</h1></div><div class="top-actions"><span class="pill">Code ${esc(roomCode)}</span><button class="btn outline small" data-action="copy-link">Copier le lien</button></div></div>`;
-  const lobby = `<section class="panel center"><span class="kicker">Rejoindre la partie</span><div class="game-code">${esc(roomCode)}</div><p>Sur leur appareil, les élèves ouvrent <strong>${esc(baseLink())}</strong> puis saisissent ce code.</p><div class="qr-wrap"><div id="roomQr" class="qr-code" aria-label="QR code pour rejoindre la partie"></div><p class="muted tiny">Scannez ce QR code avec l’appareil photo pour rejoindre directement la salle.</p></div><div class="code-link">${esc(joinLink())}</div><div class="hr"></div><div class="count">${Object.keys(people).length}</div><div class="muted">joueur${Object.keys(people).length>1?'s':''} inscrit${Object.keys(people).length>1?'s':''}</div><div class="names" style="justify-content:center">${Object.values(people).map(p=>`<span class="name-chip">${esc(p.name)}</span>`).join('')}</div><button class="btn primary spaced" data-action="start" ${Object.keys(people).length===0?'disabled':''}>Démarrer le quiz →</button><p class="last-note">${esc(sessionQuiz?.questions.length || 0)} questions · ${esc(meta.duration)} secondes par question</p></section>`;
+  const lobby = `<section class="panel center"><span class="kicker">Rejoindre la partie</span><div class="game-code">${esc(roomCode)}</div><p>Sur leur appareil, les élèves ouvrent <strong>${esc(baseLink())}</strong> puis saisissent ce code.</p><div class="qr-wrap"><div id="roomQr" class="qr-code" aria-label="QR code pour rejoindre la partie"></div><p class="muted tiny">Les élèves scannent ce QR code pour rejoindre directement la salle.</p></div><div class="code-link">${esc(joinLink())}</div><div class="hr"></div><div class="count">${Object.keys(people).length}</div><div class="muted">joueur${Object.keys(people).length>1?'s':''} inscrit${Object.keys(people).length>1?'s':''}</div><div class="names" style="justify-content:center">${Object.values(people).map(p=>`<span class="name-chip">${esc(p.name)}</span>`).join('')}</div><button class="btn primary spaced" data-action="start" ${Object.keys(people).length===0?'disabled':''}>Démarrer le quiz →</button><p class="last-note">${esc(sessionQuiz?.questions.length || 0)} questions · ${esc(meta.duration)} secondes par question</p></section>`;
   let content = '';
   if (phase === 'lobby') content = lobby;
   if (phase === 'question' || phase === 'reveal') {
@@ -367,12 +416,7 @@ async function submitAnswer(index) {
   catch(err){toast(friendlyError(err));}
   finally{submitting=false;render();}
 }
-function exportQuiz() {
-  const text=JSON.stringify(quiz,null,2);
-  const url=URL.createObjectURL(new Blob([text],{type:'application/json;charset=utf-8'}));
-  const anchor=document.createElement('a');anchor.href=url;anchor.download='QuizAnglaisPersonnalise.json';anchor.click();
-  setTimeout(()=>URL.revokeObjectURL(url),500);
-}
+function exportQuiz() { downloadJson(quiz,'QuizAnglaisPersonnalise.json'); }
 async function importQuiz(file) {
   if(!file)return;
   try {
@@ -380,19 +424,42 @@ async function importQuiz(file) {
     const incoming=JSON.parse(contents);
     const errors=validateQuiz(incoming);
     if(errors.length) throw new Error(errors[0]);
-    quiz={title:incoming.title,duration:Number(incoming.duration),questions:incoming.questions.map(q=>({text:q.text,options:[...q.options],correct:q.correct}))};
-    saveQuiz();render();toast('Quiz importé : '+quiz.questions.length+' questions.');
+    const imported={title:incoming.title,duration:Number(incoming.duration),questions:incoming.questions.map(q=>({text:q.text,options:[...q.options],correct:q.correct}))};
+    const lower=imported.title.toLowerCase();
+    const level=/3e|3ème|spy school/.test(lower)?'3ème':/6e|6ème/.test(lower)?'6ème':'6ème';
+    const category=/grammaire|grammar/.test(lower)?'Grammaire':/culture|history|civilisation/.test(lower)?'Culture':'Vocabulaire';
+    const entry=makeEntry(imported,level,category,/spy school/.test(lower)?'Espionnage':'',/spy school/.test(lower)?'Spy School':'');
+    library.push(entry);persistLibrary();startEdit(entry.id);toast('Quiz ajouté à la bibliothèque : '+imported.questions.length+' questions. Vérifie son classement.');
   }catch(err){toast('Impossible d’importer ce fichier : '+friendlyError(err));}
+}
+
+
+async function importLibraryFile(file) {
+ if(!file)return;
+ try {
+  const raw=JSON.parse(await file.text());
+  if(raw?.format!=='EnglishQuizBattleLibraryV2'||!Array.isArray(raw.entries))throw new Error('Ce fichier n’est pas une sauvegarde de bibliothèque compatible.');
+  const incoming=raw.entries;
+  if(incoming.length>500||incoming.some(e=>!LEVELS.includes(e.level)||!CATEGORIES.includes(e.category)||validateQuiz(e.quiz).length))throw new Error('Sauvegarde invalide ou trop volumineuse.');
+  if(!confirm('Remplacer la bibliothèque de cet appareil par celle de la sauvegarde ?'))return;
+  library=incoming.map(e=>makeEntry(e.quiz,e.level,e.category,e.theme,e.sequence));activeQuizId=null;persistLibrary();role='library';render();toast(incoming.length+' quiz restaurés.');
+ }catch(err){toast('Import impossible : '+friendlyError(err));}
 }
 
 $app.addEventListener('click',async ev=>{
   const button=ev.target.closest('[data-action]');if(!button||button.disabled)return;
   const action=button.dataset.action;
-  if(action==='editor'){role='editor';render();}
+  if(action==='editor'){role='library';render();}
+  if(action==='library'){saveActiveQuiz();role='library';render();}
+  if(action==='new-quiz'){const entry=makeEntry({title:'Nouveau quiz',duration:20,questions:[{text:'Nouvelle question',options:['Réponse A','Réponse B','Réponse C','Réponse D'],correct:0}]},libraryLevel==='Tous'?'6ème':libraryLevel,libraryCategory==='Tous'?'Vocabulaire':libraryCategory,'','');library.push(entry);persistLibrary();startEdit(entry.id);}
+  if(action==='pick-quiz'||action==='edit-quiz') startEdit(button.dataset.id);
+  if(action==='duplicate-quiz'){const old=library.find(e=>e.id===button.dataset.id);if(old){const copy=makeEntry(old.quiz,old.level,old.category,old.theme,old.sequence);copy.quiz.title+=' (copie)';library.push(copy);persistLibrary();startEdit(copy.id);}}
+  if(action==='remove-quiz'){const old=library.find(e=>e.id===button.dataset.id);if(old&&confirm('Supprimer « '+old.quiz.title+' » de cet appareil ?')){library=library.filter(e=>e.id!==old.id);persistLibrary();render();}}
+  if(action==='export-library'){downloadJson({format:'EnglishQuizBattleLibraryV2',entries:library},'SauvegardeEnglishQuizBattle.json');toast('Sauvegarde téléchargée.');}
   else if(action==='go-join'){const input=document.getElementById('homeCode');const code=(input?.value||'').replace(/\D/g,'');history.replaceState(null,'',baseLink()+(code?'?join='+encodeURIComponent(code):''));role='joining';render();}
   else if(action==='home'){exitRoom();history.replaceState(null,'',baseLink());}
-  else if(action==='add-question'){if(quiz.questions.length>=40)return toast('Maximum : 40 questions.');quiz.questions.push({text:'',options:['','','',''],correct:0});saveQuiz();render();}
-  else if(action==='delete-question'){if(quiz.questions.length>1){quiz.questions.splice(Number(button.dataset.index),1);saveQuiz();render();}}
+  else if(action==='add-question'){if(quiz.questions.length>=40)return toast('Maximum : 40 questions.');quiz.questions.push({text:'',options:['','','',''],correct:0});saveQuiz();saveActiveQuiz();render();}
+  else if(action==='delete-question'){if(quiz.questions.length>1){quiz.questions.splice(Number(button.dataset.index),1);saveQuiz();saveActiveQuiz();render();}}
   else if(action==='export')exportQuiz();
   else if(action==='create')await createRoom();
   else if(action==='join')await joinRoom();
@@ -409,19 +476,25 @@ $app.addEventListener('click',async ev=>{
 $app.addEventListener('input',ev=>{
   const t=ev.target;
   if(role!=='editor')return;
+  if (t.id==='entryTheme'||t.id==='entrySequence') {const entry=selectedEntry();if(entry){entry[t.id==='entryTheme'?'theme':'sequence']=t.value;persistLibrary();}return;}
   if(t.dataset.quizField==='title')quiz.title=t.value;
   else if(t.dataset.questionField==='text')quiz.questions[Number(t.dataset.index)].text=t.value;
   else if(t.dataset.option!==undefined)quiz.questions[Number(t.dataset.index)].options[Number(t.dataset.option)]=t.value;
   else return;
-  saveQuiz();
+  saveQuiz();saveActiveQuiz();
+  if (['entryTheme','entrySequence'].includes(t.id)) { const entry=selectedEntry();if(entry){entry[t.id==='entryTheme'?'theme':'sequence']=t.value.trim();persistLibrary();} }
 });
 $app.addEventListener('change',ev=>{
   const t=ev.target;
   if(t.id==='importFile'){importQuiz(t.files?.[0]);return;}
+  if(t.id==='importLibrary'){importLibraryFile(t.files?.[0]);return;}
+  if(t.id==='levelFilter'){libraryLevel=t.value;render();return;}
+  if(t.id==='categoryFilter'){libraryCategory=t.value;render();return;}
+  if(t.id==='entryLevel'||t.id==='entryCategory'){const entry=selectedEntry();if(entry){entry[t.id==='entryLevel'?'level':'category']=t.value;persistLibrary();}return;}
   if(role!=='editor')return;
   if(t.dataset.quizField==='duration')quiz.duration=Number(t.value);
   if(t.dataset.questionField==='correct')quiz.questions[Number(t.dataset.index)].correct=Number(t.value);
-  saveQuiz();
+  saveQuiz();saveActiveQuiz();
 });
 $app.addEventListener('keydown',ev=>{
   if(ev.key==='Enter'&&['homeCode','joinCode','joinName'].includes(ev.target.id)){
