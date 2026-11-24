@@ -1,1 +1,984 @@
-window.QB_STARTER_QUIZZES = [{"level":"6ème","category":"Vocabulaire","theme":"Famille","sequence":"","quiz":{"title":"Family Vocabulary · 6e","duration":20,"questions":[{"text":"Comment dit-on « une tante » en anglais ?","options":["An aunt","An uncle","A niece","A cousin"],"correct":0},{"text":"Comment dit-on « un neveu » en anglais ?","options":["A son","A grandson","A nephew","A brother"],"correct":2},{"text":"Comment dit-on « une fille » (de ses parents) en anglais ?","options":["A sister","A daughter","A mother","A niece"],"correct":1},{"text":"Comment dit-on « un oncle » en anglais ?","options":["A grandfather","A father","A cousin","An uncle"],"correct":3},{"text":"Comment dit-on « les grands-parents » en anglais ?","options":["Parents","Grandparents","Grandchildren","Relatives"],"correct":1},{"text":"Comment dit-on « une nièce » en anglais ?","options":["A niece","A granddaughter","An aunt","A daughter"],"correct":0},{"text":"Comment dit-on « un fils » en anglais ?","options":["A husband","A brother","A son","A father"],"correct":2},{"text":"Comment dit-on « une épouse » en anglais ?","options":["A mother","An aunt","A sister","A wife"],"correct":3},{"text":"Comment dit-on « un frère » en anglais ?","options":["A nephew","A brother","An uncle","A cousin"],"correct":1},{"text":"Comment dit-on « un mari » en anglais ?","options":["A father","A grandfather","A husband","A son"],"correct":2}]}},{"level":"3ème","category":"Vocabulaire","theme":"Espionnage","sequence":"Spy School","quiz":{"title":"Spy School · Vocabulaire · 3e","duration":20,"questions":[{"text":"Comment dit-on « espionnage » ?","options":["Espionage","Mission","Recruit","Contestant"],"correct":0},{"text":"Quel mot signifie « un espion » ?","options":["A host","A spy","A recruit","A mastermind"],"correct":1},{"text":"Quel verbe signifie « recruter » ?","options":["Detect","Decipher","Recruit","Train"],"correct":2},{"text":"Comment dit-on « une mission » ?","options":["A challenge","A plot","A programme","A mission"],"correct":3},{"text":"Comment dit-on « secret » ?","options":["Secret","Exciting","Athletic","Persuasive"],"correct":0},{"text":"Quelle expression signifie « agir sous couverture » ?","options":["Spy on","Go undercover","Apply for","Break codes"],"correct":1},{"text":"Quelle expression signifie « espionner quelqu’un » ?","options":["Apply for someone","Fight someone","Spy on someone","Train someone"],"correct":2},{"text":"Quel verbe signifie « déchiffrer » ?","options":["Detect","Dive","Shoot","Decipher"],"correct":3},{"text":"Quelle expression signifie « casser des codes » ?","options":["Break codes","Solve puzzles","Gather intel","Go undercover"],"correct":0},{"text":"Comment dit-on « résoudre des énigmes » ?","options":["Break codes","Solve puzzles","Fly planes","Train agents"],"correct":1},{"text":"Quel adjectif signifie « courageux » ?","options":["Humble","Sporty","Brave","Discreet"],"correct":2},{"text":"Quel adjectif signifie « déterminé » ?","options":["Funny","Humble","Secret","Determined"],"correct":3},{"text":"Quel adjectif signifie « persuasif » ?","options":["Persuasive","Athletic","Confidential","Thrilling"],"correct":0},{"text":"Quel adjectif signifie « humble » ?","options":["Smug","Humble","Arrogant","Brilliant"],"correct":1},{"text":"Quel adjectif signifie « arrogant, suffisant » ?","options":["Humble","Discreet","Smug","Athletic"],"correct":2},{"text":"Quel adjectif signifie « passionnant, palpitant » ?","options":["Confidential","Humble","Capable","Thrilling"],"correct":3},{"text":"Comment dit-on « participer à » ?","options":["Participate in","Apply for","Spy on","Be trained"],"correct":0},{"text":"Comment dit-on « postuler pour » ?","options":["Participate in","Apply for","Go undercover","Spy on"],"correct":1},{"text":"Dans une émission TV, que signifie « contestant » ?","options":["Présentateur","Intrigue","Candidat","Épreuve"],"correct":2},{"text":"Dans une émission TV, que signifie « host » ?","options":["Candidat","Mission","Espion","Présentateur"],"correct":3},{"text":"Comment dit-on « une épreuve, un défi » ?","options":["A challenge","A mastermind","A recruit","A host"],"correct":0},{"text":"Quel mot signifie « intrigue » ?","options":["Host","Plot","Contestant","Skill"],"correct":1},{"text":"Comment dit-on « être entraîné » ?","options":["Be humble","Be thrilling","Be trained","Be funny"],"correct":2},{"text":"Quel adverbe signifie « extrêmement » ?","options":["Highly","Really","Fantastically","Extremely"],"correct":3},{"text":"Quel adjectif signifie « doué, talentueux » ?","options":["Talented","Determined","Confidential","Discreet"],"correct":0}]}},{"level":"3ème","category":"Grammaire","theme":"Expression de la capacité","sequence":"Spy School","quiz":{"title":"Spy School · Capacité · 3e","duration":30,"questions":[{"text":"Choose the correct sentence.","options":["James Bond can fly a plane.","James Bond can flying a plane.","James Bond cans fly a plane.","James Bond can to fly a plane."],"correct":0},{"text":"Complete: She is able ___ decipher codes.","options":["at","to","of","for"],"correct":1},{"text":"Complete: He is capable of ___ puzzles.","options":["solve","to solve","solving","solves"],"correct":2},{"text":"Complete: Daisy is good at ___ undercover.","options":["go","to go","goes","going"],"correct":3},{"text":"Choose the correct negative sentence.","options":["He cannot drive a car.","He does not can drive a car.","He cannot driving a car.","He not can drive a car."],"correct":0},{"text":"Choose the correct sentence.","options":["Alex Rider is able controlling the horse.","Alex Rider is able to control the horse.","Alex Rider able to controls the horse.","Alex Rider is able control the horse."],"correct":1},{"text":"Complete: I ___ capable of breaking codes.","options":["is","are","am","be"],"correct":2},{"text":"Complete: She ___ good at solving puzzles.","options":["am","are","be","is"],"correct":3},{"text":"Choose the correct sentence.","options":["He has mastered swimming.","He has mastered swim.","He has mastered to swim.","He has master swimming."],"correct":0},{"text":"Complete: They are capable of ___ codes.","options":["break","breaking","to break","broke"],"correct":1},{"text":"Choose the sentence equivalent to “I can swim”.","options":["I am good at to swim.","I am capable of swim.","I am able to swim.","I can swimming."],"correct":2},{"text":"Choose the sentence equivalent to “She is capable of diving”.","options":["She can diving.","She is able diving.","She can to dive.","She can dive."],"correct":3},{"text":"Complete: Johnny English ___ able to fly a plane.","options":["is","are","am","be"],"correct":0},{"text":"Choose the correct question.","options":["Does James Bond can decipher this code?","Can James Bond decipher this code?","Can James Bond to decipher this code?","Is James Bond can decipher this code?"],"correct":1},{"text":"Complete: James Bond can’t ___ a spaceship.","options":["flying","to fly","fly","flies"],"correct":2},{"text":"Choose the correct sentence.","options":["Daisy is not capable of fly a plane.","Daisy does not capable of flying a plane.","Daisy is not capable to flying a plane.","Daisy is not capable of flying a plane."],"correct":3},{"text":"Choose the correct expression for “Elle sait très bien nager”.","options":["She is good at swimming.","She is good at swim.","She is good to swim.","She is good at to swim."],"correct":0},{"text":"Choose the correct sentence.","options":["He does not fully masters horse riding.","He does not fully master horse riding.","He is not fully master horse riding.","He does not fully master to riding."],"correct":1},{"text":"Which expression is followed by “to + verb” ?","options":["Be capable of","Be good at","Be able","Can"],"correct":2},{"text":"Which expression is followed by “of + V-ing” ?","options":["Be able","Can","Be trained","Be capable"],"correct":3}]}}];
+window.QB_STARTER_QUIZZES = [
+  {
+    "level": "6ème",
+    "category": "Vocabulaire",
+    "theme": "Famille",
+    "sequence": "",
+    "quiz": {
+      "title": "Family Vocabulary · 6e",
+      "duration": 20,
+      "questions": [
+        {
+          "text": "Comment dit-on « une tante » en anglais ?",
+          "options": [
+            "An aunt",
+            "An uncle",
+            "A niece",
+            "A cousin"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Comment dit-on « un neveu » en anglais ?",
+          "options": [
+            "A son",
+            "A grandson",
+            "A nephew",
+            "A brother"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Comment dit-on « une fille » (de ses parents) en anglais ?",
+          "options": [
+            "A sister",
+            "A daughter",
+            "A mother",
+            "A niece"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Comment dit-on « un oncle » en anglais ?",
+          "options": [
+            "A grandfather",
+            "A father",
+            "A cousin",
+            "An uncle"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Comment dit-on « les grands-parents » en anglais ?",
+          "options": [
+            "Parents",
+            "Grandparents",
+            "Grandchildren",
+            "Relatives"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Comment dit-on « une nièce » en anglais ?",
+          "options": [
+            "A niece",
+            "A granddaughter",
+            "An aunt",
+            "A daughter"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Comment dit-on « un fils » en anglais ?",
+          "options": [
+            "A husband",
+            "A brother",
+            "A son",
+            "A father"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Comment dit-on « une épouse » en anglais ?",
+          "options": [
+            "A mother",
+            "An aunt",
+            "A sister",
+            "A wife"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Comment dit-on « un frère » en anglais ?",
+          "options": [
+            "A nephew",
+            "A brother",
+            "An uncle",
+            "A cousin"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Comment dit-on « un mari » en anglais ?",
+          "options": [
+            "A father",
+            "A grandfather",
+            "A husband",
+            "A son"
+          ],
+          "correct": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": "3ème",
+    "category": "Vocabulaire",
+    "theme": "Espionnage",
+    "sequence": "Spy School",
+    "quiz": {
+      "title": "Spy School · Vocabulaire · 3e",
+      "duration": 20,
+      "questions": [
+        {
+          "text": "Comment dit-on « espionnage » ?",
+          "options": [
+            "Espionage",
+            "Mission",
+            "Recruit",
+            "Contestant"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Quel mot signifie « un espion » ?",
+          "options": [
+            "A host",
+            "A spy",
+            "A recruit",
+            "A mastermind"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Quel verbe signifie « recruter » ?",
+          "options": [
+            "Detect",
+            "Decipher",
+            "Recruit",
+            "Train"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Comment dit-on « une mission » ?",
+          "options": [
+            "A challenge",
+            "A plot",
+            "A programme",
+            "A mission"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Comment dit-on « secret » ?",
+          "options": [
+            "Secret",
+            "Exciting",
+            "Athletic",
+            "Persuasive"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Quelle expression signifie « agir sous couverture » ?",
+          "options": [
+            "Spy on",
+            "Go undercover",
+            "Apply for",
+            "Break codes"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Quelle expression signifie « espionner quelqu’un » ?",
+          "options": [
+            "Apply for someone",
+            "Fight someone",
+            "Spy on someone",
+            "Train someone"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Quel verbe signifie « déchiffrer » ?",
+          "options": [
+            "Detect",
+            "Dive",
+            "Shoot",
+            "Decipher"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Quelle expression signifie « casser des codes » ?",
+          "options": [
+            "Break codes",
+            "Solve puzzles",
+            "Gather intel",
+            "Go undercover"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Comment dit-on « résoudre des énigmes » ?",
+          "options": [
+            "Break codes",
+            "Solve puzzles",
+            "Fly planes",
+            "Train agents"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Quel adjectif signifie « courageux » ?",
+          "options": [
+            "Humble",
+            "Sporty",
+            "Brave",
+            "Discreet"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Quel adjectif signifie « déterminé » ?",
+          "options": [
+            "Funny",
+            "Humble",
+            "Secret",
+            "Determined"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Quel adjectif signifie « persuasif » ?",
+          "options": [
+            "Persuasive",
+            "Athletic",
+            "Confidential",
+            "Thrilling"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Quel adjectif signifie « humble » ?",
+          "options": [
+            "Smug",
+            "Humble",
+            "Arrogant",
+            "Brilliant"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Quel adjectif signifie « arrogant, suffisant » ?",
+          "options": [
+            "Humble",
+            "Discreet",
+            "Smug",
+            "Athletic"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Quel adjectif signifie « passionnant, palpitant » ?",
+          "options": [
+            "Confidential",
+            "Humble",
+            "Capable",
+            "Thrilling"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Comment dit-on « participer à » ?",
+          "options": [
+            "Participate in",
+            "Apply for",
+            "Spy on",
+            "Be trained"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Comment dit-on « postuler pour » ?",
+          "options": [
+            "Participate in",
+            "Apply for",
+            "Go undercover",
+            "Spy on"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Dans une émission TV, que signifie « contestant » ?",
+          "options": [
+            "Présentateur",
+            "Intrigue",
+            "Candidat",
+            "Épreuve"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Dans une émission TV, que signifie « host » ?",
+          "options": [
+            "Candidat",
+            "Mission",
+            "Espion",
+            "Présentateur"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Comment dit-on « une épreuve, un défi » ?",
+          "options": [
+            "A challenge",
+            "A mastermind",
+            "A recruit",
+            "A host"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Quel mot signifie « intrigue » ?",
+          "options": [
+            "Host",
+            "Plot",
+            "Contestant",
+            "Skill"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Comment dit-on « être entraîné » ?",
+          "options": [
+            "Be humble",
+            "Be thrilling",
+            "Be trained",
+            "Be funny"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Quel adverbe signifie « extrêmement » ?",
+          "options": [
+            "Highly",
+            "Really",
+            "Fantastically",
+            "Extremely"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Quel adjectif signifie « doué, talentueux » ?",
+          "options": [
+            "Talented",
+            "Determined",
+            "Confidential",
+            "Discreet"
+          ],
+          "correct": 0
+        }
+      ]
+    }
+  },
+  {
+    "level": "3ème",
+    "category": "Grammaire",
+    "theme": "Expression de la capacité",
+    "sequence": "Spy School",
+    "quiz": {
+      "title": "Spy School · Capacité · 3e",
+      "duration": 30,
+      "questions": [
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "James Bond can fly a plane.",
+            "James Bond can flying a plane.",
+            "James Bond cans fly a plane.",
+            "James Bond can to fly a plane."
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Complete: She is able ___ decipher codes.",
+          "options": [
+            "at",
+            "to",
+            "of",
+            "for"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Complete: He is capable of ___ puzzles.",
+          "options": [
+            "solve",
+            "to solve",
+            "solving",
+            "solves"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Complete: Daisy is good at ___ undercover.",
+          "options": [
+            "go",
+            "to go",
+            "goes",
+            "going"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Choose the correct negative sentence.",
+          "options": [
+            "He cannot drive a car.",
+            "He does not can drive a car.",
+            "He cannot driving a car.",
+            "He not can drive a car."
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "Alex Rider is able controlling the horse.",
+            "Alex Rider is able to control the horse.",
+            "Alex Rider able to controls the horse.",
+            "Alex Rider is able control the horse."
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Complete: I ___ capable of breaking codes.",
+          "options": [
+            "is",
+            "are",
+            "am",
+            "be"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Complete: She ___ good at solving puzzles.",
+          "options": [
+            "am",
+            "are",
+            "be",
+            "is"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "He has mastered swimming.",
+            "He has mastered swim.",
+            "He has mastered to swim.",
+            "He has master swimming."
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Complete: They are capable of ___ codes.",
+          "options": [
+            "break",
+            "breaking",
+            "to break",
+            "broke"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Choose the sentence equivalent to “I can swim”.",
+          "options": [
+            "I am good at to swim.",
+            "I am capable of swim.",
+            "I am able to swim.",
+            "I can swimming."
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Choose the sentence equivalent to “She is capable of diving”.",
+          "options": [
+            "She can diving.",
+            "She is able diving.",
+            "She can to dive.",
+            "She can dive."
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Complete: Johnny English ___ able to fly a plane.",
+          "options": [
+            "is",
+            "are",
+            "am",
+            "be"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Choose the correct question.",
+          "options": [
+            "Does James Bond can decipher this code?",
+            "Can James Bond decipher this code?",
+            "Can James Bond to decipher this code?",
+            "Is James Bond can decipher this code?"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Complete: James Bond can’t ___ a spaceship.",
+          "options": [
+            "flying",
+            "to fly",
+            "fly",
+            "flies"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "Daisy is not capable of fly a plane.",
+            "Daisy does not capable of flying a plane.",
+            "Daisy is not capable to flying a plane.",
+            "Daisy is not capable of flying a plane."
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Choose the correct expression for “Elle sait très bien nager”.",
+          "options": [
+            "She is good at swimming.",
+            "She is good at swim.",
+            "She is good to swim.",
+            "She is good at to swim."
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "He does not fully masters horse riding.",
+            "He does not fully master horse riding.",
+            "He is not fully master horse riding.",
+            "He does not fully master to riding."
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Which expression is followed by “to + verb” ?",
+          "options": [
+            "Be capable of",
+            "Be good at",
+            "Be able",
+            "Can"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Which expression is followed by “of + V-ing” ?",
+          "options": [
+            "Be able",
+            "Can",
+            "Be trained",
+            "Be capable"
+          ],
+          "correct": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": "3ème",
+    "category": "Grammaire",
+    "theme": "Recruit",
+    "sequence": "Spy School",
+    "quiz": {
+      "title": "Spy School · Grammaire et vocabulaire · Recruit · 3e",
+      "duration": 30,
+      "questions": [
+        {
+          "text": "A person who takes part in a TV competition.",
+          "options": [
+            "contestant",
+            "host",
+            "recruiter",
+            "viewer"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "A person who presents a TV show.",
+          "options": [
+            "contestant",
+            "candidate",
+            "host",
+            "viewer"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "To understand a message written in code.",
+          "options": [
+            "train",
+            "detect",
+            "recruit",
+            "decipher"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Someone who does not boast about their abilities.",
+          "options": [
+            "humble",
+            "persuasive",
+            "smug",
+            "arrogant"
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Someone who refuses to give up.",
+          "options": [
+            "athletic",
+            "humble",
+            "determined",
+            "discreet"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "A story that makes you feel excited and nervous.",
+          "options": [
+            "confidential",
+            "persuasive",
+            "thrilling",
+            "humble"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "She wants to become a contestant. She must ___ the show.",
+          "options": [
+            "train for",
+            "apply for",
+            "spy on",
+            "present"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "He is capable of ___ puzzles.",
+          "options": [
+            "to solve",
+            "solving",
+            "solve",
+            "solves"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "They are able ___ the message.",
+          "options": [
+            "decipher",
+            "to decipher",
+            "deciphering",
+            "of deciphering"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Which is the superlative of brave?",
+          "options": [
+            "the most brave than",
+            "the bravest",
+            "the bravest than",
+            "the braver"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Which is the superlative of good?",
+          "options": [
+            "the goodest",
+            "the most good",
+            "the best",
+            "the better"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Choose the correct question.",
+          "options": [
+            "Does she can solve puzzles?",
+            "Can she solve puzzles?",
+            "Is she can solve puzzles?",
+            "Can she solves puzzles?"
+          ],
+          "correct": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": "3ème",
+    "category": "Grammaire",
+    "theme": "Secret Agent",
+    "sequence": "Spy School",
+    "quiz": {
+      "title": "Spy School · Grammaire et vocabulaire · Secret Agent · 3e",
+      "duration": 30,
+      "questions": [
+        {
+          "text": "The candidate speaks convincingly and changes people's minds. She is ___.",
+          "options": [
+            "humble",
+            "discreet",
+            "athletic",
+            "persuasive"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "He looks excessively pleased with himself after winning. He is ___.",
+          "options": [
+            "discreet",
+            "smug",
+            "confidential",
+            "humble"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "The information must not be shared with outsiders. It is ___.",
+          "options": [
+            "athletic",
+            "confidential",
+            "persuasive",
+            "thrilling"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Which word means the main events of a fictional story?",
+          "options": [
+            "mission",
+            "challenge",
+            "plot",
+            "programme"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "She is good to decipher codes.",
+            "She is good at decipher codes.",
+            "She is good at deciphering codes.",
+            "She is good at to decipher codes."
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Rewrite using capable: They can solve this puzzle.",
+          "options": [
+            "They are capable of solving this puzzle.",
+            "They are capable of solve this puzzle.",
+            "They are capable to solve this puzzle.",
+            "They capable of solving this puzzle."
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Choose the correct negative form of be able to.",
+          "options": [
+            "He is not able solving it.",
+            "He not is able to solve it.",
+            "He does not able to solve it.",
+            "He is not able to solve it."
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Choose the correct question using be capable of.",
+          "options": [
+            "Are you capable of solve it?",
+            "Do you capable of solving it?",
+            "Are you capable of solving it?",
+            "Are you capable to solve it?"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Of all the candidates, Mia is ___. (persuasive)",
+          "options": [
+            "more persuasive",
+            "the most persuasive",
+            "the more persuasive",
+            "the persuasivest"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Of all the challenges, this one is ___. (easy)",
+          "options": [
+            "the most easiest",
+            "the easier",
+            "the easiest",
+            "the easyest"
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "He is the better contestant in the group.",
+            "He is the best contestant in the group.",
+            "He is the most best contestant in the group.",
+            "He is the best than the other contestants."
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Which sentence explicitly describes a high level of skill?",
+          "options": [
+            "She must solve puzzles.",
+            "She is very good at solving puzzles.",
+            "She can solve puzzles.",
+            "She wants to solve puzzles."
+          ],
+          "correct": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": "3ème",
+    "category": "Grammaire",
+    "theme": "Elite Agent",
+    "sequence": "Spy School",
+    "quiz": {
+      "title": "Spy School · Grammaire et vocabulaire · Elite Agent · 3e",
+      "duration": 30,
+      "questions": [
+        {
+          "text": "A candidate is talented but never boasts. Which pair best describes her?",
+          "options": [
+            "athletic and arrogant",
+            "skilled and humble",
+            "skilled and smug",
+            "persuasive and smug"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "A contestant keeps trying after several failures. Which quality is demonstrated?",
+          "options": [
+            "persuasiveness",
+            "determination",
+            "discretion",
+            "humility"
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Which sentence means that he has acquired a skill thoroughly?",
+          "options": [
+            "He has mastered the skill.",
+            "He has applied for the skill.",
+            "He has detected the skill.",
+            "He has recruited the skill."
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "Neither candidate is capable to solve the puzzle.",
+            "Neither candidate is capable of solving the puzzle.",
+            "Neither candidate can solving the puzzle.",
+            "Neither candidate are capable of solve the puzzle."
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "The most determined contestant is not always the talentedest.",
+            "The more determined contestant is not always the most talentedest.",
+            "The determinedest contestant is not always the most talented.",
+            "The most determined contestant is not always the most talented."
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Rewrite using able: She cannot decipher the message.",
+          "options": [
+            "She is not able of deciphering the message.",
+            "She is not able to decipher the message.",
+            "She does not able to decipher the message.",
+            "She is not able deciphering the message."
+          ],
+          "correct": 1
+        },
+        {
+          "text": "Which sentence contains a grammatical error?",
+          "options": [
+            "He is able to solve puzzles.",
+            "He is good at solving puzzles.",
+            "He can solve puzzles.",
+            "He is capable of solve puzzles."
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Which sentence expresses an obligation rather than an ability?",
+          "options": [
+            "Contestants are capable of completing the challenge.",
+            "Contestants can complete the challenge.",
+            "Contestants must complete the challenge.",
+            "Contestants are able to complete the challenge."
+          ],
+          "correct": 2
+        },
+        {
+          "text": "Which sentence expresses a prohibition?",
+          "options": [
+            "Contestants are unable to share the answers.",
+            "Contestants do not have to share the answers.",
+            "Contestants are not good at sharing the answers.",
+            "Contestants must not share the answers."
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Of all the applicants, Leo has the least experience. Which sentence matches?",
+          "options": [
+            "Leo is the least experienced applicant.",
+            "Leo is the most experienced applicant.",
+            "Leo is more experienced than every applicant.",
+            "Leo is as experienced as every applicant."
+          ],
+          "correct": 0
+        },
+        {
+          "text": "Choose the correct question.",
+          "options": [
+            "Who is the most capable of solve this puzzle?",
+            "Who is the most capable to solve this puzzle?",
+            "Who is the most capable of to solve this puzzle?",
+            "Who is the most capable of solving this puzzle?"
+          ],
+          "correct": 3
+        },
+        {
+          "text": "Choose the correct sentence.",
+          "options": [
+            "Although she is talented, she is not good at work in a team.",
+            "Although she is talented, she is not good at to work in a team.",
+            "Although she is talented, she is not good to working in a team.",
+            "Although she is talented, she is not good at working in a team."
+          ],
+          "correct": 3
+        }
+      ]
+    }
+  }
+];
