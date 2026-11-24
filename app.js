@@ -210,7 +210,7 @@ function render() {
 }
 function renderHome() {
   const incoming = queryJoinCode();
-  $app.innerHTML = `<section class="hero"><span class="eyebrow">Interactive classroom</span><h1>Make learning<br>feel like a game.</h1><p>Des questions, un chronomètre et un classement en direct. Les élèves jouent sur leur propre appareil.</p></section>
+  $app.innerHTML = `<section class="spy-cover"><img src="SpySchool.webp" alt="English Quiz Battle V4 — illustration de dossier confidentiel avec loupe et Londres"><div class="cover-caption">MISSION BRIEFING · Choose your role below</div></section>
   <div class="grid2"><section class="card"><div class="feature-icon">🎓</div><span class="kicker">Espace professeur</span><h2>Créer une partie</h2><p>Choisis un quiz par niveau, type ou thème, affiche le code de connexion et pilote les questions au tableau.</p><button class="btn primary wide" data-action="library">Choisir un quiz <span aria-hidden="true">→</span></button></section>
   <section class="card"><div class="feature-icon">⚡</div><span class="kicker">Espace élève</span><h2>Rejoindre la classe</h2><p>Entre le code affiché par le professeur et choisis un pseudonyme.</p><div class="field"><label for="homeCode">Code de la partie</label><input id="homeCode" inputmode="numeric" maxlength="6" placeholder="Ex. 123456" value="${esc(incoming)}"></div><button class="btn blue wide" data-action="go-join">Rejoindre <span aria-hidden="true">→</span></button></section></div>
   <p class="last-note">Aucune application à installer. Internet et la configuration Firebase sont nécessaires pour jouer sur plusieurs appareils.</p>`;
